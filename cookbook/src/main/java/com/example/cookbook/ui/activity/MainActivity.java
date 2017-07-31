@@ -3,6 +3,7 @@ package com.example.cookbook.ui.activity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -33,6 +34,8 @@ public class MainActivity extends BaseActivity implements ICookSearchView, View.
     @Bind(R.id.refreshLayout)
     SmartRefreshLayout refreshLayout;
 
+    private String searchContent = "";
+    private String lastSearchContent = "";
     private Handler handler;
     private int size = 10;
     private CustomDialog customDialog;
@@ -56,6 +59,7 @@ public class MainActivity extends BaseActivity implements ICookSearchView, View.
         searchPresenter = new CookSearchPresenter(this, this);
         adapter = new CookListAdapter(this, dataBeenList);
         lv.setAdapter(adapter);
+        refreshLayout.setEnableRefresh(false);
         refreshLayout.setOnRefreshLoadmoreListener(new OnRefreshLoadmoreListener() {
             @Override
             public void onLoadmore(final RefreshLayout refreshlayout) {
@@ -63,7 +67,7 @@ public class MainActivity extends BaseActivity implements ICookSearchView, View.
                     @Override
                     public void run() {
                         size += 10;
-                        loadData(et_searchCook.getText().toString(), size);
+                        loadData(searchContent, size);
                         refreshlayout.finishLoadmore();
                     }
                 }, 2000);
@@ -71,6 +75,7 @@ public class MainActivity extends BaseActivity implements ICookSearchView, View.
 
             @Override
             public void onRefresh(RefreshLayout refreshlayout) {
+//                refreshlayout.setEnableRefresh(false);
             }
         });
     }
@@ -81,7 +86,19 @@ public class MainActivity extends BaseActivity implements ICookSearchView, View.
 
     @Override
     protected void initView() {
+        tvTitle.setText("主页");
         btn_search.setOnClickListener(this);
+        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                startActivityForSeria(CookDetailActivity.class,"cook_detail",adapter.getItem(position));
+            }
+        });
+    }
+
+    @Override
+    protected boolean showToolbar() {
+        return true;
     }
 
     @Override
@@ -108,18 +125,23 @@ public class MainActivity extends BaseActivity implements ICookSearchView, View.
 
     @Override
     public void onClick(View view) {
+        searchContent = et_searchCook.getText().toString();
         switch (view.getId()) {
             case R.id.btn_search:
-                if (et_searchCook.getText().toString().isEmpty()) {
+                if (searchContent.isEmpty()) {
                     ToastUtil.showToast(this, "请输入菜名");
                 } else {
+                    if (!searchContent.equals(lastSearchContent)) {
+                        size = 10;
+                    }
                     adapter.clearList();
                     handler.post(new Runnable() {
                         @Override
                         public void run() {
-                            loadData(et_searchCook.getText().toString(), size);
+                            loadData(searchContent, size);
                         }
                     });
+                    lastSearchContent = searchContent;
                 }
                 break;
         }
