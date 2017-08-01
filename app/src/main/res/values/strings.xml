@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">NBALover</string>
+    <string name="string_login">登录</string>
+    <string name="string_save_username">记住用户名</string>
 </resources>

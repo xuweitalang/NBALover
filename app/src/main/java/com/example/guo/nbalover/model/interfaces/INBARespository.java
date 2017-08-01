@@ -10,5 +10,5 @@ import rx.Observable;
  */
 
 public interface INBARespository {
-    public Observable<TeamInfoBean> getCategoryQuery();
+    Observable<TeamInfoBean> getCategoryQuery();
 }

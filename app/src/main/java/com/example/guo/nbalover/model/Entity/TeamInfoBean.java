@@ -42,22 +42,22 @@ public class TeamInfoBean {
         this.error_code = error_code;
     }
 
-    public static class ResultBean {
+    public class ResultBean {
         /**
          * 1 : {"id":1,"tagid":3020,"name":"凯尔特人","eng_name":"Celtics","full_name":"波士顿凯尔特人","eng_full_name":"Boston Celtics","city":"Boston","bbr":"BOS","logo":"e59350a5bc97aa5c.png","home":"TD 花园","homepage_link":"http://www.nba.com/celtics/","intro":"波士顿凯尔特人队是NBA现有30支球队之一，NBA的前身、BAA创始球队之一，1947年进入NBA，凯尔特人和尼克斯是仅有的两支参加了1946年首届BAA联赛且至今没有迁移过城市的NBA球队。","conference":"E","eng_division":"Atlantic","cn_division":"大西洋赛区","stoped":0,"chief_coach":"布拉德-史蒂文斯","found_year":1946,"players":"3450,3467,3613,3654,3658,3671,4779,4925,4926,150005,150006,150007,1137,3360,1032","stadiums":null,"team_link":"http://g.hupu.com/nba/teams/celtics","logo_link":"http://c2.hoopchina.com.cn/images/gamespace/team/e59350a5bc97aa5c.png","stadiumsInfo":[{"id":15,"name":"TD花园","eng_name":"TD Garden","city":"Boston","state":"MA","capacity":18624}]}
          */
 
-        private TeamBean teamBean;
+        private List<TeamBean> teamBeanList;
 
-        public TeamBean getTeamBean() {
-            return teamBean;
+        public List<TeamBean> getTeamBeanList() {
+            return teamBeanList;
         }
 
-        public void setTeamBean(TeamBean teamBean) {
-            this.teamBean = teamBean;
+        public void setTeamBeanList(List<TeamBean> teamBeanList) {
+            this.teamBeanList = teamBeanList;
         }
 
-        public static class TeamBean {
+        public class TeamBean {
             /**
              * id : 1
              * tagid : 3020
@@ -292,7 +292,7 @@ public class TeamInfoBean {
                 this.stadiumsInfo = stadiumsInfo;
             }
 
-            public static class StadiumsInfoBean {
+            public class StadiumsInfoBean {
                 /**
                  * id : 15
                  * name : TD花园

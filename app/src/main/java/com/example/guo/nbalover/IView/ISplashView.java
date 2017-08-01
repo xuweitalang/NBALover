@@ -5,5 +5,6 @@ package com.example.guo.nbalover.IView;
  */
 
 public interface ISplashView {
-    public void onSplashInitData();
+    void onSplashInitData();
+    void toLoginActivity();
 }
